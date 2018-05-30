@@ -21,7 +21,7 @@
     "url": "https://github.com/tbolis/react-sketch/issues"
   },
   "license": "MIT",
-  "main": "./src",
+  "main": "./lib",
   "scripts": {
     "clean": "rimraf lib && rimraf build",
     "prebuild": "rimraf lib",
