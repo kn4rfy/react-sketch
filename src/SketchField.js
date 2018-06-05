@@ -150,7 +150,7 @@ export default class SketchField extends PureComponent {
 			const canvas = this.fc
 			const objects = canvas.getObjects()
 			const newObj = objects[objects.length - 1]
-			if (newObj && newObj.version === 1) {
+			if (newObj && newObj.objectVersion === 1) {
 				newObj.originalState = newObj.toJSON()
 			}
 		}
@@ -198,13 +198,11 @@ export default class SketchField extends PureComponent {
 			return
 		}
 		const obj = e.target
-		obj.version = 1
+		obj.objectVersion = 1
 		// record current object state as json and save as originalState
 		const objState = obj.toJSON()
 		obj.originalState = objState
 		const state = JSON.stringify(objState)
-
-		// object, previous state, current state
 		this.history.keep([obj, state, state])
 	}
 
@@ -213,7 +211,7 @@ export default class SketchField extends PureComponent {
 	 */
 	onObjectModified = e => {
 		const obj = e.target
-		obj.version += 1
+		obj.objectVersion += 1
 		const prevState = JSON.stringify(obj.originalState)
 		const objState = obj.toJSON()
 		// record current object state as json and update to originalState
@@ -242,7 +240,7 @@ export default class SketchField extends PureComponent {
 	 */
 	onObjectRemoved = e => {
 		const obj = e.target
-		obj.version = 0
+		obj.objectVersion = 0
 	}
 
 	/**
@@ -418,10 +416,10 @@ export default class SketchField extends PureComponent {
 			const canvas = this.fc
 			const [obj, prevState, currState] = history.getCurrent()
 			history.undo()
-			if (obj.version === 1) {
+			if (obj.objectVersion === 1) {
 				canvas.remove(obj)
 			} else {
-				obj.version -= 1
+				obj.objectVersion -= 1
 				obj.setOptions(JSON.parse(prevState))
 			}
 			obj.setCoords()
@@ -440,13 +438,13 @@ export default class SketchField extends PureComponent {
 		if (history.canRedo()) {
 			const canvas = this.fc
 			const [obj, prevState, currState] = history.redo()
-			if (obj.version === 0) {
+			if (obj.objectVersion === 0) {
 				this.setState({ action: false }, () => {
 					canvas.add(obj)
-					obj.version = 1
+					obj.objectVersion = 1
 				})
 			} else {
-				obj.version += 1
+				obj.objectVersion += 1
 				obj.setOptions(JSON.parse(currState))
 			}
 			obj.setCoords()

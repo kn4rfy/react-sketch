@@ -45,7 +45,7 @@ describe('SketchField', () => {
 
     it('Drag to create rectangle', () => {
         const sketch = TestUtils.renderIntoDocument(<SketchField tool={'rectangle'}/>);
-        const canvas = sketch._fc;
+        const canvas = sketch.fc;
         expect(canvas).to.exist;
 
         const startPt = {x: 10, y: 10};
@@ -80,7 +80,7 @@ describe('SketchField', () => {
 
     it('Undo/Redo for multiple rectangles add to canvas', () => {
         const sketch = TestUtils.renderIntoDocument(<SketchField tool={'rectangle'}/>);
-        const canvas = sketch._fc;
+        const canvas = sketch.fc;
         expect(canvas).to.exist;
 
         const startPt = {x: 10, y: 10};
@@ -109,7 +109,7 @@ describe('SketchField', () => {
 
     it('Undo/Redo for multiple modification for single rectangle', () => {
         const sketch = TestUtils.renderIntoDocument(<SketchField tool={'rectangle'}/>);
-        const canvas = sketch._fc;
+        const canvas = sketch.fc;
         expect(canvas).to.exist;
 
         const startPt = {x: 10, y: 10};
