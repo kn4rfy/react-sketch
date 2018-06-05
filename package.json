@@ -25,8 +25,8 @@
   "scripts": {
     "clean": "rimraf lib && rimraf build",
     "prebuild": "rimraf lib",
-    "build": "NODE_ENV=production webpack --config webpack.library.cfg.js --display-modules",
-    "build:light": "babel ./src --out-dir ./lib",
+    "build": "babel ./src --out-dir ./lib",
+    "build:webpack": "NODE_ENV=production webpack --config webpack.library.cfg.js --display-modules",
     "build:examples": "NODE_ENV=production webpack --config webpack.examples.cfg.js",
     "prepublish": "npm run test && npm run build",
     "prettier": "prettier --write --single-quote --no-semi --trailing-comma es5 --print-width 100 --tab-width 4 --use-tabs \"src/*.js\"",
