@@ -304,10 +304,10 @@ export default class SketchField extends PureComponent {
 	 * @param options object to pass and change some options when loading image, the format of the object is:
 	 *
 	 * {
-     *   left: <Number: distance from left of canvas>,
-     *   top: <Number: distance from top of canvas>,
-     *   scale: <Number: initial scale of image>
-     * }
+	 *   left: <Number: distance from left of canvas>,
+	 *   top: <Number: distance from top of canvas>,
+	 *   scale: <Number: initial scale of image>
+	 * }
 	 */
 	addImg = (dataUrl, options = {}) => {
 		const canvas = this.fc
