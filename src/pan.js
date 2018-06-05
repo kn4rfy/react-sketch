@@ -1,41 +1,42 @@
-/*eslint no-unused-vars: 0*/
-'use strict';
-
+import { fabric } from 'fabric'
 import FabricCanvasTool from './fabrictool'
-const fabric = require('fabric').fabric;
 
-class Pan extends FabricCanvasTool {
+export default class Pan extends FabricCanvasTool {
+	configureCanvas(props) {
+		const canvas = this.canvas
+		canvas.isDrawingMode = false
+		canvas.selection = false
+		canvas.forEachObject(o => {
+			const item = o
+			item.selectable = false
+			item.evented = false
 
-    configureCanvas(props) {
-        let canvas = this._canvas;
-        canvas.isDrawingMode = canvas.selection = false;
-        canvas.forEachObject((o) => o.selectable = o.evented = false);
-        //Change the cursor to the move grabber
-        canvas.defaultCursor = 'move';
-    }
+			return item
+		})
+		canvas.defaultCursor = 'move'
+	}
 
-    doMouseDown(o) {
-        let canvas = this._canvas;
-        this.isDown = true;
-        let pointer = canvas.getPointer(o.e);
-        this.startX = pointer.x;
-        this.startY = pointer.y;
-    }
+	doMouseDown(o) {
+		const canvas = this.canvas
+		this.isDown = true
+		const pointer = canvas.getPointer(o.e)
+		this.startX = pointer.x
+		this.startY = pointer.y
+	}
 
-    doMouseMove(o) {
-        if (!this.isDown) return;
-        let canvas = this._canvas;
-        let pointer = canvas.getPointer(o.e);
+	doMouseMove(o) {
+		if (!this.isDown) return
+		const canvas = this.canvas
+		const pointer = canvas.getPointer(o.e)
 
-        canvas.relativePan({ x : pointer.x - this.startX,
-                            y : pointer.y - this.startY});
-        canvas.renderAll();
-    }
+		canvas.relativePan({
+			x: pointer.x - this.startX,
+			y: pointer.y - this.startY,
+		})
+		canvas.renderAll()
+	}
 
-    doMouseUp(o) {
-        this.isDown = false;
-    }
-
+	doMouseUp(o) {
+		this.isDown = false
+	}
 }
-
-export default Pan;

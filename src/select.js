@@ -1,18 +1,16 @@
-/*eslint no-unused-vars: 0*/
-'use strict';
-
 import FabricCanvasTool from './fabrictool'
 
-class Select extends FabricCanvasTool {
+export default class Select extends FabricCanvasTool {
+	configureCanvas(props) {
+		const canvas = this.canvas
+		canvas.isDrawingMode = false
+		canvas.selection = true
+		canvas.forEachObject(o => {
+			const item = o
+			item.selectable = true
+			item.evented = true
 
-    configureCanvas(props) {
-        let canvas = this._canvas;
-        canvas.isDrawingMode = false;
-        canvas.selection = true;
-        canvas.forEachObject((o) => {
-            o.selectable = o.evented = true;
-        });
-    }
+			return item
+		})
+	}
 }
-
-export default Select

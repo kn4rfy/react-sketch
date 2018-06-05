@@ -1,54 +1,60 @@
-/*eslint no-unused-vars: 0*/
-'use strict';
-
+import { fabric } from 'fabric'
 import FabricCanvasTool from './fabrictool'
-const fabric = require('fabric').fabric;
-import {linearDistance} from './utils';
+import { linearDistance } from './utils'
 
-class Circle extends FabricCanvasTool {
+export default class Circle extends FabricCanvasTool {
+	configureCanvas(props) {
+		const canvas = this.canvas
+		canvas.isDrawingMode = false
+		canvas.selection = false
+		canvas.forEachObject(o => {
+			const item = o
+			item.selectable = false
+			item.evented = false
 
-    configureCanvas(props) {
-        let canvas = this._canvas;
-        canvas.isDrawingMode = canvas.selection = false;
-        canvas.forEachObject((o) => o.selectable = o.evented = false);
-        this._width = props.lineWidth;
-        this._color = props.lineColor;
-        this._fill = props.fillColor;
-    }
+			return item
+		})
+		this.width = props.lineWidth
+		this.color = props.lineColor
+		this.fill = props.fillColor
+	}
 
-    doMouseDown(o) {
-        let canvas = this._canvas;
-        this.isDown = true;
-        let pointer = canvas.getPointer(o.e);
-        [this.startX, this.startY] = [pointer.x, pointer.y];
-        this.circle = new fabric.Circle({
-            left: this.startX, top: this.startY,
-            originX: 'left', originY: 'center',
-            strokeWidth: this._width,
-            stroke: this._color,
-            fill: this._fill,
-            selectable: false,
-            evented: false,
-            radius: 1
-        });
-        canvas.add(this.circle);
-    }
+	doMouseDown(o) {
+		const canvas = this.canvas
+		this.isDown = true
+		const pointer = canvas.getPointer(o.e)
+		this.startX = pointer.x
+		this.startY = pointer.y
+		this.circle = new fabric.Circle({
+			left: this.startX,
+			top: this.startY,
+			originX: 'left',
+			originY: 'center',
+			strokeWidth: this.width,
+			stroke: this.color,
+			fill: this.fill,
+			selectable: false,
+			evented: false,
+			radius: 1,
+		})
+		canvas.add(this.circle)
+	}
 
-    doMouseMove(o) {
-        if (!this.isDown) return;
-        let canvas = this._canvas;
-        let pointer = canvas.getPointer(o.e);
-        this.circle.set({
-            radius: linearDistance({x: this.startX, y: this.startY}, {x: pointer.x, y: pointer.y}) / 2,
-            angle: Math.atan2(pointer.y - this.startY, pointer.x - this.startX) * 180 / Math.PI
-        });
-        this.circle.setCoords();
-        canvas.renderAll();
-    }
+	doMouseMove(o) {
+		if (!this.isDown) return
+		const canvas = this.canvas
+		const pointer = canvas.getPointer(o.e)
+		this.circle.set({
+			radius:
+				linearDistance({ x: this.startX, y: this.startY }, { x: pointer.x, y: pointer.y }) /
+				2,
+			angle: Math.atan2(pointer.y - this.startY, pointer.x - this.startX) * 180 / Math.PI,
+		})
+		this.circle.setCoords()
+		canvas.renderAll()
+	}
 
-    doMouseUp(o) {
-        this.isDown = false;
-    }
+	doMouseUp(o) {
+		this.isDown = false
+	}
 }
-
-export default Circle;

@@ -1,33 +1,19 @@
-/* eslint no-unused-vars: 0 */
-'use strict';
-
+/* eslint-disable class-methods-use-this */
 /**
  * "Abstract" like base class for a Canvas tool
  */
-class FabricCanvasTool {
-    constructor(canvas) {
-        this._canvas = canvas;
-    }
+export default class FabricCanvasTool {
+	constructor(canvas) {
+		this.canvas = canvas
+	}
 
-    configureCanvas(props) {
+	configureCanvas(props) {}
 
-    }
+	doMouseUp(event) {}
 
-    doMouseUp(event) {
+	doMouseDown(event) {}
 
-    }
+	doMouseMove(event) {}
 
-    doMouseDown(event) {
-
-    }
-
-    doMouseMove(event) {
-
-    }
-
-    doMouseOut(event) {
-
-    }
+	doMouseOut(event) {}
 }
-
-export default FabricCanvasTool;
