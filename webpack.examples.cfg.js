@@ -6,7 +6,7 @@ const examplesPath = path.join(__dirname, 'examples');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OccurrenceOrderPlugin = require('webpack/lib/optimize/OccurrenceOrderPlugin');
 const AggressiveMergingPlugin = require('webpack/lib/optimize/AggressiveMergingPlugin');
 
@@ -25,14 +25,14 @@ const config = {
     cache: true,
     devtool: 'source-map',
     module: {
-        loaders: [
+        rules: [
             {test: /\.html$/, loader: 'html-loader', include: [examplesPath], exclude: /base\.html$/},
             {test: /\.css$/, loader: 'style-loader!css-loader'},
             {
                 test: /\.(js|jsx)$/,
                 include: [srcPath, examplesPath],
                 exclude: /(node_modules|bower_components|lib)/,
-                loaders: ['babel-loader']
+                loader: ['babel-loader']
             }
         ]
     },

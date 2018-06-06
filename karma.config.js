@@ -38,12 +38,12 @@ module.exports = function (config) {
                 }
             },
             module: {
-                loaders: [
+                rules: [
                     {
                         test: /\.(js|jsx)$/,
                         include: [srcPath, testPath],
                         exclude: /(node_modules|bower_components|examples)/,
-                        loaders: ['babel-loader']
+                        loader: ['babel-loader']
                     }
                 ]
             },
