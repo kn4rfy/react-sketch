@@ -48,7 +48,7 @@ export default class Circle extends FabricCanvasTool {
 			radius:
 				linearDistance({ x: this.startX, y: this.startY }, { x: pointer.x, y: pointer.y }) /
 				2,
-			angle: Math.atan2(pointer.y - this.startY, pointer.x - this.startX) * 180 / Math.PI,
+			angle: (Math.atan2(pointer.y - this.startY, pointer.x - this.startX) * 180) / Math.PI,
 		})
 		this.circle.setCoords()
 		canvas.renderAll()
