@@ -28,6 +28,7 @@ module.exports = function (config) {
         singleRun: true,
         reporters: ['mocha'], //, 'coverage'
         webpack: {
+            mode: 'development',
             node: {
                 fs: 'empty'
             },
